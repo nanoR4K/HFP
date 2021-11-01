@@ -50,16 +50,34 @@ runTimeModifiable true;
 adjustTimeStep  no;
 
 functions
-(
- ​    /*dsmcFields1 
- ​    { 
- ​        type            dsmcFields; 
- ​        ​libs​            (​"​liblagrangianFunctionObjects.so​"​); 
- ​        writeControl    writeTime; 
- ​    }*/ 
+{
+    fieldAverage1 
+ ​    ( 
+ ​        #includeEtc ​"​caseDicts/postProcessing/fields/fieldAverage.cfg​" 
+
+ ​        fields 
+ ​        { 
+ ​            rhoN 
+ ​            rhoM 
+ ​            dsmcRhoN 
+ ​            momentum 
+ ​            linearKE 
+ ​            internalE 
+ ​            iDof 
+ ​            q 
+ ​            ​fD 
+ ​        }
+ ​    ); 
+
+    dsmcFields1 
+ ​   ( 
+ ​      type            dsmcFields; 
+ ​      ​libs​            (​"​liblagrangianFunctionObjects.so​"​); 
+ ​      writeControl    writeTime; 
+ ​   );
 
     forces1
-    {
+    (
         type            forces;
         enabled         true;
         functionObjectLibs ( "libforces.so" );
@@ -69,8 +87,8 @@ functions
         fDName          fD_N2;
         CofR            ( 0 0 0 );
         log             on;
-    }
-);
+    );
+}
 
 
 // ************************************************************************* //
